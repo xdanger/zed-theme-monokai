@@ -1,0 +1,779 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "AccentContent": {
+      "type": ["string", "null"]
+    },
+    "AppearanceContent": {
+      "enum": ["light", "dark"],
+      "type": "string"
+    },
+    "FontStyleContent": {
+      "enum": ["normal", "italic", "oblique"],
+      "type": "string"
+    },
+    "HighlightStyleContent": {
+      "properties": {
+        "background_color": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "color": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "font_style": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/FontStyleContent"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "font_weight": {
+          "anyOf": [
+            {
+              "enum": [100, 200, 300, 400, 500, 600, 700, 800, 900]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "type": "object"
+    },
+    "PlayerColorContent": {
+      "properties": {
+        "background": {
+          "type": ["string", "null"]
+        },
+        "cursor": {
+          "type": ["string", "null"]
+        },
+        "selection": {
+          "type": ["string", "null"]
+        }
+      },
+      "type": "object"
+    },
+    "ThemeContent": {
+      "description": "The content of a serialized theme.",
+      "properties": {
+        "appearance": {
+          "$ref": "#/definitions/AppearanceContent"
+        },
+        "name": {
+          "type": "string"
+        },
+        "style": {
+          "$ref": "#/definitions/ThemeStyleContent"
+        }
+      },
+      "required": ["appearance", "name", "style"],
+      "type": "object"
+    },
+    "ThemeStyleContent": {
+      "description": "The content of a serialized theme.",
+      "properties": {
+        "accents": {
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/AccentContent"
+          },
+          "type": "array"
+        },
+        "background": {
+          "default": null,
+          "description": "Background Color. Used for the app background and blank panels or windows.",
+          "type": ["string", "null"]
+        },
+        "background.appearance": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/WindowBackgroundContent"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "border": {
+          "default": null,
+          "description": "Border color. Used for most borders, is usually a high contrast color.",
+          "type": ["string", "null"]
+        },
+        "border.disabled": {
+          "default": null,
+          "description": "Border color. Used for disabled elements, like a disabled input or button.",
+          "type": ["string", "null"]
+        },
+        "border.focused": {
+          "default": null,
+          "description": "Border color. Used for focused elements, like keyboard focused list item.",
+          "type": ["string", "null"]
+        },
+        "border.selected": {
+          "default": null,
+          "description": "Border color. Used for selected elements, like an active search filter or selected checkbox.",
+          "type": ["string", "null"]
+        },
+        "border.transparent": {
+          "default": null,
+          "description": "Border color. Used for transparent borders. Used for placeholder borders when an element gains a border on state change.",
+          "type": ["string", "null"]
+        },
+        "border.variant": {
+          "default": null,
+          "description": "Border color. Used for deemphasized borders, like a visual divider between two sections",
+          "type": ["string", "null"]
+        },
+        "conflict": {
+          "default": null,
+          "description": "Indicates some kind of conflict, like a file changed on disk while it was open, or merge conflicts in a Git repository.",
+          "type": ["string", "null"]
+        },
+        "conflict.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "conflict.border": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "created": {
+          "default": null,
+          "description": "Indicates something new, like a new file added to a Git repository.",
+          "type": ["string", "null"]
+        },
+        "created.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "created.border": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "deleted": {
+          "default": null,
+          "description": "Indicates that something no longer exists, like a deleted file.",
+          "type": ["string", "null"]
+        },
+        "deleted.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "deleted.border": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "drop_target.background": {
+          "default": null,
+          "description": "Background Color. Used for the area that shows where a dragged element will be dropped.",
+          "type": ["string", "null"]
+        },
+        "editor.active_line.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "editor.active_line_number": {
+          "default": null,
+          "description": "Text Color. Used for the text of the line number in the editor gutter when the line is highlighted.",
+          "type": ["string", "null"]
+        },
+        "editor.active_wrap_guide": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "editor.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "editor.document_highlight.bracket_background": {
+          "default": null,
+          "description": "Highlighted brackets background color.\n\nMatching brackets in the cursor scope are highlighted with this background color.",
+          "type": ["string", "null"]
+        },
+        "editor.document_highlight.read_background": {
+          "default": null,
+          "description": "Read-access of a symbol, like reading a variable.\n\nA document highlight is a range inside a text document which deserves special attention. Usually a document highlight is visualized by changing the background color of its range.",
+          "type": ["string", "null"]
+        },
+        "editor.document_highlight.write_background": {
+          "default": null,
+          "description": "Read-access of a symbol, like reading a variable.\n\nA document highlight is a range inside a text document which deserves special attention. Usually a document highlight is visualized by changing the background color of its range.",
+          "type": ["string", "null"]
+        },
+        "editor.foreground": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "editor.gutter.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "editor.highlighted_line.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "editor.indent_guide": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "editor.indent_guide_active": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "editor.invisible": {
+          "default": null,
+          "description": "Text Color. Used to mark invisible characters in the editor.\n\nExample: spaces, tabs, carriage returns, etc.",
+          "type": ["string", "null"]
+        },
+        "editor.line_number": {
+          "default": null,
+          "description": "Text Color. Used for the text of the line number in the editor gutter.",
+          "type": ["string", "null"]
+        },
+        "editor.subheader.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "editor.wrap_guide": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "element.active": {
+          "default": null,
+          "description": "Background Color. Used for the active state of an element that should have a different background than the surface it's on.\n\nActive states are triggered by the mouse button being pressed down on an element, or the Return button or other activator being pressd.",
+          "type": ["string", "null"]
+        },
+        "element.background": {
+          "default": null,
+          "description": "Background Color. Used for the background of an element that should have a different background than the surface it's on.\n\nElements might include: Buttons, Inputs, Checkboxes, Radio Buttons...\n\nFor an element that should have the same background as the surface it's on, use `ghost_element_background`.",
+          "type": ["string", "null"]
+        },
+        "element.disabled": {
+          "default": null,
+          "description": "Background Color. Used for the disabled state of an element that should have a different background than the surface it's on.\n\nDisabled states are shown when a user cannot interact with an element, like a disabled button or input.",
+          "type": ["string", "null"]
+        },
+        "element.hover": {
+          "default": null,
+          "description": "Background Color. Used for the hover state of an element that should have a different background than the surface it's on.\n\nHover states are triggered by the mouse entering an element, or a finger touching an element on a touch screen.",
+          "type": ["string", "null"]
+        },
+        "element.selected": {
+          "default": null,
+          "description": "Background Color. Used for the selected state of an element that should have a different background than the surface it's on.\n\nSelected states are triggered by the element being selected (or \"activated\") by the user.\n\nThis could include a selected checkbox, a toggleable button that is toggled on, etc.",
+          "type": ["string", "null"]
+        },
+        "elevated_surface.background": {
+          "default": null,
+          "description": "Background color. Used for elevated surfaces, like a context menu, popup, or dialog.",
+          "type": ["string", "null"]
+        },
+        "error": {
+          "default": null,
+          "description": "Indicates a system error, a failed operation or a diagnostic error.",
+          "type": ["string", "null"]
+        },
+        "error.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "error.border": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "ghost_element.active": {
+          "default": null,
+          "description": "Background Color. Used for the active state of a ghost element that should have the same background as the surface it's on.\n\nActive states are triggered by the mouse button being pressed down on an element, or the Return button or other activator being pressd.",
+          "type": ["string", "null"]
+        },
+        "ghost_element.background": {
+          "default": null,
+          "description": "Used for the background of a ghost element that should have the same background as the surface it's on.\n\nElements might include: Buttons, Inputs, Checkboxes, Radio Buttons...\n\nFor an element that should have a different background than the surface it's on, use `element_background`.",
+          "type": ["string", "null"]
+        },
+        "ghost_element.disabled": {
+          "default": null,
+          "description": "Background Color. Used for the disabled state of a ghost element that should have the same background as the surface it's on.\n\nDisabled states are shown when a user cannot interact with an element, like a disabled button or input.",
+          "type": ["string", "null"]
+        },
+        "ghost_element.hover": {
+          "default": null,
+          "description": "Background Color. Used for the hover state of a ghost element that should have the same background as the surface it's on.\n\nHover states are triggered by the mouse entering an element, or a finger touching an element on a touch screen.",
+          "type": ["string", "null"]
+        },
+        "ghost_element.selected": {
+          "default": null,
+          "description": "Background Color. Used for the selected state of a ghost element that should have the same background as the surface it's on.\n\nSelected states are triggered by the element being selected (or \"activated\") by the user.\n\nThis could include a selected checkbox, a toggleable button that is toggled on, etc.",
+          "type": ["string", "null"]
+        },
+        "hidden": {
+          "default": null,
+          "description": "Represents a hidden status, such as a file being hidden in a file tree.",
+          "type": ["string", "null"]
+        },
+        "hidden.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "hidden.border": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "hint": {
+          "default": null,
+          "description": "Indicates a hint or some kind of additional information.",
+          "type": ["string", "null"]
+        },
+        "hint.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "hint.border": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "icon": {
+          "default": null,
+          "description": "Fill Color. Used for the default fill color of an icon.",
+          "type": ["string", "null"]
+        },
+        "icon.accent": {
+          "default": null,
+          "description": "Fill Color. Used for the accent fill color of an icon.\n\nThis might be used to show when a toggleable icon button is selected.",
+          "type": ["string", "null"]
+        },
+        "icon.disabled": {
+          "default": null,
+          "description": "Fill Color. Used for the disabled fill color of an icon.\n\nDisabled states are shown when a user cannot interact with an element, like a icon button.",
+          "type": ["string", "null"]
+        },
+        "icon.muted": {
+          "default": null,
+          "description": "Fill Color. Used for the muted or deemphasized fill color of an icon.\n\nThis might be used to show an icon in an inactive pane, or to demphasize a series of icons to give them less visual weight.",
+          "type": ["string", "null"]
+        },
+        "icon.placeholder": {
+          "default": null,
+          "description": "Fill Color. Used for the placeholder fill color of an icon.\n\nThis might be used to show an icon in an input that disappears when the user enters text.",
+          "type": ["string", "null"]
+        },
+        "ignored": {
+          "default": null,
+          "description": "Indicates that something is deliberately ignored, such as a file or operation ignored by Git.",
+          "type": ["string", "null"]
+        },
+        "ignored.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "ignored.border": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "info": {
+          "default": null,
+          "description": "Represents informational status updates or messages.",
+          "type": ["string", "null"]
+        },
+        "info.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "info.border": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "link_text.hover": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "modified": {
+          "default": null,
+          "description": "Indicates a changed or altered status, like a file that has been edited.",
+          "type": ["string", "null"]
+        },
+        "modified.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "modified.border": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "pane.focused_border": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "pane_group.border": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "panel.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "panel.focused_border": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "panel.indent_guide": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "panel.indent_guide_active": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "panel.indent_guide_hover": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "players": {
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/PlayerColorContent"
+          },
+          "type": "array"
+        },
+        "predictive": {
+          "default": null,
+          "description": "Indicates something that is predicted, like automatic code completion, or generated code.",
+          "type": ["string", "null"]
+        },
+        "predictive.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "predictive.border": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "renamed": {
+          "default": null,
+          "description": "Represents a renamed status, such as a file that has been renamed.",
+          "type": ["string", "null"]
+        },
+        "renamed.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "renamed.border": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "scrollbar.thumb.background": {
+          "default": null,
+          "description": "The color of the scrollbar thumb.",
+          "type": ["string", "null"]
+        },
+        "scrollbar.thumb.border": {
+          "default": null,
+          "description": "The border color of the scrollbar thumb.",
+          "type": ["string", "null"]
+        },
+        "scrollbar.thumb.hover_background": {
+          "default": null,
+          "description": "The color of the scrollbar thumb when hovered over.",
+          "type": ["string", "null"]
+        },
+        "scrollbar.track.background": {
+          "default": null,
+          "description": "The background color of the scrollbar track.",
+          "type": ["string", "null"]
+        },
+        "scrollbar.track.border": {
+          "default": null,
+          "description": "The border color of the scrollbar track.",
+          "type": ["string", "null"]
+        },
+        "search.match_background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "status_bar.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "success": {
+          "default": null,
+          "description": "Indicates a successful operation or task completion.",
+          "type": ["string", "null"]
+        },
+        "success.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "success.border": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "surface.background": {
+          "default": null,
+          "description": "Background Color. Used for grounded surfaces like a panel or tab.",
+          "type": ["string", "null"]
+        },
+        "syntax": {
+          "additionalProperties": {
+            "$ref": "#/definitions/HighlightStyleContent"
+          },
+          "default": {},
+          "description": "The styles for syntax nodes.",
+          "type": "object"
+        },
+        "tab.active_background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "tab.inactive_background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "tab_bar.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.background": {
+          "default": null,
+          "description": "Terminal ANSI background color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.black": {
+          "default": null,
+          "description": "Black ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.blue": {
+          "default": null,
+          "description": "Blue ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.bright_black": {
+          "default": null,
+          "description": "Bright black ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.bright_blue": {
+          "default": null,
+          "description": "Bright blue ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.bright_cyan": {
+          "default": null,
+          "description": "Bright cyan ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.bright_green": {
+          "default": null,
+          "description": "Bright green ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.bright_magenta": {
+          "default": null,
+          "description": "Bright magenta ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.bright_red": {
+          "default": null,
+          "description": "Bright red ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.bright_white": {
+          "default": null,
+          "description": "Bright white ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.bright_yellow": {
+          "default": null,
+          "description": "Bright yellow ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.cyan": {
+          "default": null,
+          "description": "Cyan ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.dim_black": {
+          "default": null,
+          "description": "Dim black ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.dim_blue": {
+          "default": null,
+          "description": "Dim blue ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.dim_cyan": {
+          "default": null,
+          "description": "Dim cyan ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.dim_green": {
+          "default": null,
+          "description": "Dim green ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.dim_magenta": {
+          "default": null,
+          "description": "Dim magenta ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.dim_red": {
+          "default": null,
+          "description": "Dim red ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.dim_white": {
+          "default": null,
+          "description": "Dim white ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.dim_yellow": {
+          "default": null,
+          "description": "Dim yellow ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.green": {
+          "default": null,
+          "description": "Green ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.magenta": {
+          "default": null,
+          "description": "Magenta ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.red": {
+          "default": null,
+          "description": "Red ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.white": {
+          "default": null,
+          "description": "White ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.ansi.yellow": {
+          "default": null,
+          "description": "Yellow ANSI terminal color.",
+          "type": ["string", "null"]
+        },
+        "terminal.background": {
+          "default": null,
+          "description": "Terminal background color.",
+          "type": ["string", "null"]
+        },
+        "terminal.bright_foreground": {
+          "default": null,
+          "description": "Bright terminal foreground color.",
+          "type": ["string", "null"]
+        },
+        "terminal.dim_foreground": {
+          "default": null,
+          "description": "Dim terminal foreground color.",
+          "type": ["string", "null"]
+        },
+        "terminal.foreground": {
+          "default": null,
+          "description": "Terminal foreground color.",
+          "type": ["string", "null"]
+        },
+        "text": {
+          "default": null,
+          "description": "Text Color. Default text color used for most text.",
+          "type": ["string", "null"]
+        },
+        "text.accent": {
+          "default": null,
+          "description": "Text Color. Color used for emphasis or highlighting certain text, like an active filter or a matched character in a search.",
+          "type": ["string", "null"]
+        },
+        "text.disabled": {
+          "default": null,
+          "description": "Text Color. Color used for text denoting disabled elements. Typically, the color is faded or grayed out to emphasize the disabled state.",
+          "type": ["string", "null"]
+        },
+        "text.muted": {
+          "default": null,
+          "description": "Text Color. Color of muted or deemphasized text. It is a subdued version of the standard text color.",
+          "type": ["string", "null"]
+        },
+        "text.placeholder": {
+          "default": null,
+          "description": "Text Color. Color of the placeholder text typically shown in input fields to guide the user to enter valid data.",
+          "type": ["string", "null"]
+        },
+        "title_bar.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "title_bar.inactive_background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "toolbar.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "unreachable": {
+          "default": null,
+          "description": "Indicates some kind of unreachable status, like a block of code that can never be reached.",
+          "type": ["string", "null"]
+        },
+        "unreachable.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "unreachable.border": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "warning": {
+          "default": null,
+          "description": "Represents a warning status, like an operation that is about to fail.",
+          "type": ["string", "null"]
+        },
+        "warning.background": {
+          "default": null,
+          "type": ["string", "null"]
+        },
+        "warning.border": {
+          "default": null,
+          "type": ["string", "null"]
+        }
+      },
+      "type": "object"
+    },
+    "WindowBackgroundContent": {
+      "description": "The background appearance of the window.",
+      "enum": ["opaque", "transparent", "blurred"],
+      "type": "string"
+    }
+  },
+  "description": "The content of a serialized theme family.",
+  "properties": {
+    "author": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "themes": {
+      "items": {
+        "$ref": "#/definitions/ThemeContent"
+      },
+      "type": "array"
+    }
+  },
+  "required": ["author", "name", "themes"],
+  "title": "ThemeFamilyContent",
+  "type": "object"
+}
