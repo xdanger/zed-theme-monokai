@@ -1,0 +1,29 @@
+{
+  "autocorrect.enable": true,
+  "autocorrect.enableLint": true,
+  "autocorrect.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "editor.formatOnSave": true,
+  "files.associations": {
+    "*.mdx": "mdx"
+  },
+  "ruff.nativeServer": "on",
+  "[markdown][mdx]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  },
+  "[mdx]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript][typescript]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.tabSize": 2
+  },
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.tabSize": 4
+  }
+}
